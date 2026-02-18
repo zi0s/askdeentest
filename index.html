@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelCred - Earn Credits</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #00ff88;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #00ff88;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        
+        .grid-container {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        label {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        
+        input, select, button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #3a3a3a;
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        input:focus, select:focus {
+            outline: 2px solid #00ff88;
+        }
+        
+        button {
+            background: #00ff88;
+            color: #1a1a1a;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #00cc6a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 255, 136, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .color-picker {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .color-input {
+            width: 50px;
+            height: 35px;
+            padding: 0;
+            border: 2px solid #555;
+            cursor: pointer;
+        }
+        
+        .color-input:focus {
+            outline: 2px solid #00ff88;
+        }
+        
+        .grid-wrapper {
+            display: inline-block;
+            border: 2px solid #444;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .pixel-grid {
+            display: grid;
+            gap: 0;
+            background: #000;
+            cursor: crosshair;
+        }
+        
+        .pixel {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #333;
+            transition: background-color 0.1s ease;
+        }
+        
+        .pixel:hover {
+            opacity: 0.8;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .price-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .price-input input {
+            width: 100px;
+        }
+        
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .success {
+            background: #004d00;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+        
+        .error {
+            background: #4d0000;
+            color: #ff6666;
+            border: 1px solid #ff6666;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #3a3a3a;
+            border-top: 3px solid #00ff88;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .tips-info {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        
+        .tips-info strong {
+            color: #00ff88;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .pixel {
+                width: 15px;
+                height: 15px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PixelCred</h1>
+        <p class="subtitle">Create pixel art and earn credits from tips!</p>
+        
+        <div class="grid-container">
+            <div class="controls">
+                <div class="control-group">
+                    <label for="gridSize">Grid Size</label>
+                    <select id="gridSize">
+                        <option value="8">8×8</option>
+                        <option value="16" selected>16×16</option>
+                        <option value="24">24×24</option>
+                        <option value="32">32×32</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="colorPicker">Color</label>
+                    <div class="color-picker">
+                        <input type="color" id="colorPicker" class="color-input" value="#00ff88">
+                        <button id="eraserBtn">Eraser</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="clearBtn">Actions</label>
+                    <button id="clearBtn">Clear Canvas</button>
+                </div>
+            </div>
+            
+            <div class="grid-wrapper">
+                <div id="pixelGrid" class="pixel-grid"></div>
+            </div>
+            
+            <div class="actions">
+                <div class="price-input">
+                    <label for="price">Price (credits):</label>
+                    <input type="number" id="price" min="10" max="10000" value="100" step="10">
+                </div>
+                <button id="uploadBtn">Upload & Post</button>
+            </div>
+            
+            <div class="tips-info">
+                <strong>How it works:</strong> Set your price, upload your pixel art, and we'll automatically post it with a comment. 
+                Tippers pay double your price (due to Websim tax), but you'll receive your full asking price in credits!
+            </div>
+            
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "marked": "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js",
+            "dompurify": "https://cdn.jsdelivr.net/npm/dompurify/dist/purify.es.min.js"
+        }
+    }
+    </script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
