@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AskDeen - Your Islamic Companion</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1E3A8A">
+<link rel="apple-touch-icon" href="https://cdn.discordapp.com/attachments/1128649693589676083/1474048538898862121/IMG_0711.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    <div id="app">
+        <!-- Onboarding remains same structure but updated style -->
+        <section id="welcome-screen" class="screen">
+            <div class="welcome-content">
+                <div id="typewriter-container" class="welcome-greeting-typewriter"></div>
+                
+                <div id="onboarding-phase-1" class="onboarding-phase hidden">
+                    <div class="welcome-buttons">
+                        <button id="start-onboarding-btn" class="btn-primary">Yes, let's start</button>
+                        <button id="skip-onboarding-btn" class="btn-secondary">Skip</button>
+                    </div>
+                </div>
+
+                <div id="onboarding-phase-2" class="onboarding-phase hidden">
+                    <div class="name-input-container">
+                        <input type="text" id="user-name-input" placeholder="Enter your name" autocomplete="off">
+                        <button id="submit-name-btn" class="btn-primary">Next</button>
+                    </div>
+                </div>
+
+                <div id="onboarding-phase-3" class="onboarding-phase hidden">
+                    <div class="options-grid">
+                        <button class="option-btn" data-value="everyday">Every day</button>
+                        <button class="option-btn" data-value="sometimes">Once in a while</button>
+                        <button class="option-btn" data-value="rarely">Rarely</button>
+                    </div>
+                </div>
+
+                <div id="onboarding-phase-4" class="onboarding-phase hidden">
+                    <div class="options-grid horizontal">
+                        <button class="option-btn" data-value="1">1</button>
+                        <button class="option-btn" data-value="2">2</button>
+                        <button class="option-btn" data-value="3">3</button>
+                        <button class="option-btn" data-value="4">4</button>
+                        <button class="option-btn" data-value="5">5</button>
+                    </div>
+                </div>
+
+                <div id="onboarding-phase-5" class="onboarding-phase hidden">
+                    <div class="options-grid">
+                        <button class="option-btn" data-value="motivation">Not enough motivation</button>
+                        <button class="option-btn" data-value="tired">Tired</button>
+                        <button class="option-btn" data-value="time">No time</button>
+                        <button class="option-btn" data-value="other">Other</button>
+                    </div>
+                </div>
+
+                <div id="onboarding-phase-6" class="onboarding-phase hidden">
+                    <button id="finish-onboarding-btn" class="btn-primary">Enter AskDeen</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Dashboard Layout -->
+        <main id="main-content" class="screen hidden">
+            <div id="dashboard-view" class="view active">
+                <header class="view-header">
+                    <div class="header-left">
+                        <span class="greeting-text">Assalamu Alaykum, <span id="display-user-name">Friend</span></span>
+                    </div>
+                    <div class="header-right">
+                        <button id="settings-trigger-btn" class="icon-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                </header>
+
+                <div class="dashboard-scrollable">
+                    <div class="hero-section">
+                        <div class="next-prayer-card" id="main-prayer-card">
+                            <div class="card-tag">Next <span id="next-prayer-name">Dhuhr</span></div>
+                            <div class="prayer-time-large" id="next-prayer-time">12:43</div>
+                            <div class="location-info">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span id="current-location-text">Detecting...</span>
+                            </div>
+                            <div class="countdown-timer" id="next-prayer-countdown">in 2h 22m</div>
+                        </div>
+                        <div class="track-fajr-card">
+                            <div class="track-header">
+                                <span>Track Prayers</span>
+                                <div class="progress-ring"></div>
+                            </div>
+                            <div class="track-content">
+                                <h3>Track Fajr →</h3>
+                                <p>0/5 tracked</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="features-section">
+                        <div class="section-header">
+                            <h2>Your Features</h2>
+                        </div>
+                        <div class="features-grid">
+                            <div class="feature-item" data-target="qibla">
+                                <img src="qibla_icon.png" alt="Qibla">
+                                <span>Qibla</span>
+                            </div>
+                            <div class="feature-item" data-target="duas">
+                                <img src="duas_icon.png" alt="Duas">
+                                <span>Duas</span>
+                            </div>
+                            <div class="feature-item" data-target="tasbih">
+                                <img src="tasbih_icon.png" alt="Tasbih">
+                                <span>Tasbih</span>
+                            </div>
+                            <div class="feature-item" data-target="mosque">
+                                <img src="mosque_icon.png" alt="Mosque">
+                                <span>Mosque</span>
+                            </div>
+                            <div class="feature-item" id="askdeen-feature">
+                                <img src="askdeen_icon.png" alt="AskDeen">
+                                <span>AskDeen</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wisdom-section">
+                        <div class="section-header">
+                            <h2>Daily Wisdom</h2>
+                        </div>
+                        <div id="daily-wisdom-card" class="wisdom-card">
+                            <p id="wisdom-text">"Verily, with hardship comes ease."</p>
+                            <span id="wisdom-source">Surah Ash-Sharh 94:6</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Prayer Times View -->
+            <div id="prayers-view" class="view">
+                <header class="view-header">
+                    <button class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <h2>Prayer Times</h2>
+                </header>
+                <div class="view-content">
+                    <div id="prayers-summary" class="prayers-summary">
+                        <!-- Prayer widget: shows location badge, allow/later actions, and prayer list below -->
+                        <div id="prayer-widget" class="prayer-widget" style="margin-bottom:0.9rem; display:flex;align-items:center;justify-content:flex-start;gap:0.6rem;">
+                            <div style="display:flex;align-items:center;gap:0.9rem;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <div style="display:flex;flex-direction:column;text-align:left;">
+                                    <strong id="prayer-widget-location" style="font-size:0.95rem;">No location</strong>
+                                    <!-- keep only a single, simple location line -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kept minimal: prayer list will be rendered below -->
+                        <div id="full-prayer-list" class="prayer-list">
+                            <!-- Dynamic list -->
+                        </div>
+
+                        <div class="location-display" id="prayers-location">No location</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Qibla View -->
+            <div id="qibla-view" class="view">
+                <header class="view-header">
+                    <button class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <h2>Qibla Finder</h2>
+                </header>
+                    <div class="view-content centered">
+                    <div style="max-width:420px;text-align:center;">
+                        <div class="disclaimer-icon">🔧</div>
+                        <h3>Qibla Finder</h3>
+                        <p>There are a few bugs with the live compass right now — we're working on fixes. Thanks for your patience.</p>
+                        <button class="btn-primary" onclick="switchView('dashboard-view')">Back</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasbih View -->
+            <div id="tasbih-view" class="view">
+                <header class="view-header">
+                    <button class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <h2>Tasbih Counter</h2>
+                </header>
+                <div class="view-content centered">
+                    <div id="tasbih-counter" class="tasbih-display">0</div>
+                    <div class="tasbih-bead-container" id="tasbih-trigger">
+                        <div class="tasbih-bead-main"></div>
+                    </div>
+                    <button id="reset-tasbih" class="btn-secondary">Reset</button>
+                </div>
+            </div>
+
+            <!-- Duas View -->
+            <div id="duas-view" class="view">
+                <header class="view-header">
+                    <button class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <h2>Daily Duas</h2>
+                </header>
+                <div class="view-content">
+                    <div class="search-bar">
+                        <input type="text" id="dua-search" placeholder="Search Duas...">
+                    </div>
+                    <div id="dua-list" class="dua-list">
+                        <!-- Dynamic list -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mosque View -->
+            <div id="mosque-view" class="view">
+                <header class="view-header">
+                    <button class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <h2>Nearby Mosques</h2>
+                </header>
+                <div class="view-content">
+                    <div id="mosque-list" class="mosque-list">
+                        <!-- Mock data for now -->
+                        <div class="mosque-item">
+                            <div class="mosque-info">
+                                <h4>Central Masjid</h4>
+                                <p>1.2 miles away</p>
+                            </div>
+                            <button class="btn-primary">Directions</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AskDeen Disclaimer/Coming Soon -->
+            <div id="askdeen-view" class="view">
+                <header class="view-header">
+                    <button class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <h2>AskDeen AI</h2>
+                </header>
+                <div class="view-content centered disclaimer-page">
+                    <div id="disclaimer-content" class="active">
+                        <div class="disclaimer-icon">⚠️</div>
+                        <h3>Important Disclaimer</h3>
+                        <p>AskDeen uses artificial intelligence to provide information. AI can occasionally make mistakes or provide incomplete answers. This tool is for educational purposes only and should <strong>not</strong> replace consulting with qualified Islamic scholars for fatwas or critical religious guidance.</p>
+                        <div id="disclaimer-timer" class="timer-text">Please wait 5 seconds...</div>
+                        <button id="disclaimer-continue-btn" class="btn-primary hidden" disabled>Continue</button>
+                    </div>
+                    <div id="coming-soon-content" class="hidden">
+                        <img src="askdeen_icon.png" width="100" alt="AskDeen">
+                        <h3>AskDeen is evolving!</h3>
+                        <p>We are currently recreating the AI experience to serve you better. Check back soon for the new and improved AskDeen.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="view">
+                <header class="view-header">
+                    <button class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <h2>Settings</h2>
+                </header>
+                <div class="view-content settings-content">
+                    <div class="settings-group">
+                        <label>Appearance</label>
+                        <div class="theme-options">
+                            <button class="theme-btn" data-theme="light">Light</button>
+                            <button class="theme-btn" data-theme="dark">Dark</button>
+                            <button class="theme-btn" data-theme="system">System</button>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <label>Language</label>
+                        <select id="lang-select">
+                            <option value="en">English (US)</option>
+                            <option value="ar">العربية</option>
+                            <option value="tr">Türkçe</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-group">
+                        <label>Notifications</label>
+                        <div style="display:flex;gap:0.6rem;align-items:center;">
+                            <div id="notifications-status" style="flex:1;color:var(--text-muted);">Unknown</div>
+                            <button id="enable-notifications-btn" class="btn-primary" style="padding:0.5rem 0.8rem;font-weight:700;">Enable</button>
+                            <button id="disable-notifications-btn" class="btn-secondary" style="padding:0.5rem 0.8rem;font-weight:700;">Disable</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group" style="display:flex;gap:0.6rem;align-items:center;flex-wrap:wrap;">
+                        <button id="enable-notifications-btn-2" class="btn-primary" style="padding:0.6rem 0.9rem;font-weight:800;display:none;">Enable Prayer Notifications</button>
+                        <button id="clear-data-btn" class="btn-secondary">Reset App Data</button>
+                        <button id="export-project-btn" class="btn-primary" style="padding:0.6rem 0.9rem;font-weight:800;margin-left:8px;">Export Project</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav">
+                <button class="nav-item active" data-view="dashboard-view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>Today</span>
+                </button>
+                <button class="nav-item" data-view="prayers-view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8Z"/><path d="M10 12h.01"/><path d="M16 2v2"/><path d="M6 2v2"/></svg>
+                    <span>Prayers</span>
+                </button>
+                <button class="nav-item" data-view="duas-view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                    <span>Duas</span>
+                </button>
+                <button class="nav-item" data-view="tasbih-view">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></svg>
+                    <span>Tasbih</span>
+                </button>
+            </nav>
+        </main>
+    </div>
+    <!-- Location permission / error modal -->
+    <div id="location-modal" class="hidden modal-overlay">
+        <div class="modal-card">
+            <h3>Location needed</h3>
+            <p>Sorry, we couldn't detect your location. We need it to show accurate prayer times and nearby mosques.</p>
+            <div class="modal-actions">
+                <button id="location-allow-btn" class="btn-primary">Allow</button>
+                <button id="location-later-btn" class="btn-secondary">Later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Messaging bootstrap (enable notifications) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+      import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-messaging.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyChRjGYjYyI4yKp6XAgkbdCWHZnkrtkpE0",
+        authDomain: "askdeen-21529.firebaseapp.com",
+        projectId: "askdeen-21529",
+        storageBucket: "askdeen-21529.firebasestorage.app",
+        messagingSenderId: "483496063721",
+        appId: "1:483496063721:web:22c8eb9efa098750557678"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const messaging = getMessaging(app);
+
+      // Register service worker at root for background messages
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/firebase-messaging-sw.js').then(reg => {
+          console.log('Service Worker registered:', reg);
+          window.__swRegistration = reg;
+        }).catch(err => {
+          console.warn('SW registration failed', err);
+        });
+
+        // Register basic PWA service worker for installability/offline support
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+          console.log('PWA Service Worker registered', reg);
+        }).catch(err => {
+          console.error('PWA Service Worker registration failed', err);
+        });
+      }
+
+      // Install prompt handling for PWAs
+      let __deferredInstallPrompt = null;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        __deferredInstallPrompt = e;
+        // show a lightweight install banner
+        const installBanner = document.createElement('div');
+        installBanner.id = 'askdeen-install-banner';
+        installBanner.style.position = 'fixed';
+        installBanner.style.left = '12px';
+        installBanner.style.right = '12px';
+        installBanner.style.bottom = '80px';
+        installBanner.style.zIndex = 9999;
+        installBanner.style.background = 'var(--card-bg)';
+        installBanner.style.border = '1px solid rgba(255,255,255,0.04)';
+        installBanner.style.padding = '12px';
+        installBanner.style.borderRadius = '12px';
+        installBanner.style.display = 'flex';
+        installBanner.style.alignItems = 'center';
+        installBanner.style.justifyContent = 'space-between';
+        installBanner.style.boxShadow = '0 10px 30px rgba(0,0,0,0.25)';
+        installBanner.innerHTML = `
+          <div style="display:flex;gap:12px;align-items:center;">
+            <img src="/askdeen_icon.png" width="42" style="border-radius:9px;" alt="AskDeen">
+            <div style="font-weight:700;">Install AskDeen for prayer reminders</div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button id="askdeen-install-btn" class="btn-primary" style="padding:0.5rem 0.8rem;">Install</button>
+            <button id="askdeen-install-dismiss" class="btn-secondary" style="padding:0.5rem 0.8rem;">Dismiss</button>
+          </div>
+        `;
+        document.body.appendChild(installBanner);
+
+        document.getElementById('askdeen-install-btn').addEventListener('click', async () => {
+          if (!__deferredInstallPrompt) return;
+          __deferredInstallPrompt.prompt();
+          const choice = await __deferredInstallPrompt.userChoice;
+          console.log('Install choice:', choice.outcome);
+          installBanner.remove();
+          __deferredInstallPrompt = null;
+        });
+
+        document.getElementById('askdeen-install-dismiss').addEventListener('click', () => {
+          installBanner.remove();
+        });
+      });
+
+      // store token locally and send to backend placeholder
+      async function savePushToken(token) {
+        if (!token) return;
+        localStorage.setItem('askdeen_push_token', token);
+        console.log('Saved push token locally:', token);
+        // TODO: send token to your backend securely to store for server-side notifications
+        // Example:
+        // await fetch('/api/save-push-token', { method: 'POST', body: JSON.stringify({ token }) });
+      }
+
+      async function removePushToken() {
+        const token = localStorage.getItem('askdeen_push_token');
+        if (!token) return;
+        // TODO: inform backend to delete this token
+        console.log('Removing push token (client-side):', token);
+        localStorage.removeItem('askdeen_push_token');
+      }
+
+      async function enableNotifications() {
+        try {
+          const permission = await Notification.requestPermission();
+          document.getElementById('notifications-status') && (document.getElementById('notifications-status').textContent = permission);
+          if (permission === "granted") {
+            // get token
+            const token = await getToken(messaging, {
+              vapidKey: "BIJRnE6KGFe7mbNTdz7Q4MbhDp9jrR5PbXgpKXUS9G4gS42WkrHRN4AVVjzuDeoP34zerr7ki_Dx_MkhzLIx4ZY"
+            });
+            console.log("Push Token:", token);
+            await savePushToken(token);
+
+            // confirmation notification
+            const swReg = window.__swRegistration || await navigator.serviceWorker.getRegistration();
+            if (swReg && swReg.showNotification) {
+              swReg.showNotification("Notifications enabled", {
+                body: "You have enabled notifications. You will now start receiving prayer-time notifications.",
+                icon: "/askdeen_icon.png"
+              });
+            } else {
+              new Notification("Notifications enabled", {
+                body: "You have enabled notifications. You will now start receiving prayer-time notifications.",
+                icon: "/askdeen_icon.png"
+              });
+            }
+
+            // reflect status UI
+            const statusEl = document.getElementById('notifications-status');
+            if (statusEl) statusEl.textContent = 'granted';
+            // let app schedule notifications (app.js will pick this up)
+            window.dispatchEvent(new Event('askdeen:notifications-enabled'));
+          } else {
+            console.warn("Notification permission not granted:", permission);
+            const statusEl = document.getElementById('notifications-status');
+            if (statusEl) statusEl.textContent = permission;
+          }
+        } catch (e) {
+          console.error('enableNotifications error', e);
+        }
+      }
+
+      async function disableNotifications() {
+        try {
+          await removePushToken();
+          // cancel client scheduled notifications via event
+          window.dispatchEvent(new Event('askdeen:notifications-disabled'));
+          // give user feedback
+          const swReg = window.__swRegistration || await navigator.serviceWorker.getRegistration();
+          if (swReg && swReg.showNotification) {
+            swReg.showNotification("Notifications disabled", {
+              body: "Notifications disabled. You will no longer receive prayer-time alerts.",
+              icon: "/askdeen_icon.png"
+            });
+          } else {
+            // Some browsers might not allow Notification without permission, so only update UI
+            console.log('Notifications disabled (no SW notification available).');
+          }
+          const statusEl = document.getElementById('notifications-status');
+          if (statusEl) statusEl.textContent = 'disabled';
+        } catch (e) {
+          console.error('disableNotifications error', e);
+        }
+      }
+
+      window.enableNotifications = enableNotifications;
+      window.disableNotifications = disableNotifications;
+
+      // Optional: handle incoming messages while page is open
+      onMessage(messaging, (payload) => {
+        console.log("Message received. ", payload);
+        // small in-app toast could be added here
+      });
+
+      // On first load, if permission is default, prompt gently to enable
+      (async function promptOnVisit() {
+        try {
+          const current = Notification.permission;
+          const statusEl = document.getElementById('notifications-status');
+          if (statusEl) statusEl.textContent = current;
+          if (current === 'default') {
+            // small gentle prompt (browser permission UI will appear)
+            // ask once on visit
+            const want = confirm("Allow notifications to receive prayer-time alerts?");
+            if (want) {
+              await enableNotifications();
+            } else {
+              // user opted not now
+              if (statusEl) statusEl.textContent = 'default';
+            }
+          }
+        } catch (e) {
+          console.warn('promptOnVisit error', e);
+        }
+      })();
+
+      // wire settings buttons (some elements added dynamically)
+      window.addEventListener('DOMContentLoaded', () => {
+        const enableBtn = document.getElementById('enable-notifications-btn');
+        const enableBtn2 = document.getElementById('enable-notifications-btn-2');
+        const disableBtn = document.getElementById('disable-notifications-btn');
+        if (enableBtn) enableBtn.addEventListener('click', () => enableNotifications());
+        if (enableBtn2) enableBtn2.addEventListener('click', () => enableNotifications());
+        if (disableBtn) disableBtn.addEventListener('click', () => disableNotifications());
+
+        // Open export modal when export button is present
+        const exportBtn = document.getElementById('export-project-btn');
+        if (exportBtn) {
+          exportBtn.addEventListener('click', async () => {
+            // show modal (handled in app.js)
+            document.getElementById('export-modal')?.classList.remove('hidden');
+          });
+        }
+      });
+    </script>
+
+    <!-- Export modal (select files to copy) -->
+    <div id="export-modal" class="hidden modal-overlay" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="export-modal-title">
+        <h3 id="export-modal-title">Export Project Files</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:0.75rem;">Select which files you want to copy to clipboard</p>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;max-height:260px;overflow:auto;margin-bottom:0.75rem;text-align:left;">
+          <label><input type="checkbox" class="export-file" value="index.html" checked> index.html</label>
+          <label><input type="checkbox" class="export-file" value="app.js" checked> app.js</label>
+          <label><input type="checkbox" class="export-file" value="style.css" checked> style.css</label>
+          <label><input type="checkbox" class="export-file" value="manifest.json" checked> manifest.json</label>
+          <label><input type="checkbox" class="export-file" value="sw.js" checked> sw.js</label>
+          <label><input type="checkbox" class="export-file" value="firebase-messaging-sw.js" checked> firebase-messaging-sw.js</label>
+        </div>
+        <div style="display:flex;gap:0.5rem;justify-content:flex-end;">
+          <button id="export-cancel" class="btn-secondary">Cancel</button>
+          <button id="export-confirm" class="btn-primary">Copy Selected</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
