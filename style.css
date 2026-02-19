@@ -1,0 +1,599 @@
+--- style.css ---
+:root {
+    --primary: #10b981;
+    --primary-light: #34d399;
+    --primary-dark: #065f46;
+    --bg-dark: #020606; 
+    --card-bg: #0a1110;
+    --card-bg-light: #121d1b;
+    --text-white: #ffffff;
+    --text-muted: #718096;
+    --accent: #fbbf24;
+    --btn-radius: 14px;
+}
+
+[data-theme="light"] {
+    --bg-dark: #ffffff;
+    --card-bg: #f7fafc;
+    --card-bg-light: #edf2f7;
+    --text-white: #1a202c;
+    --text-muted: #4a5568;
+    --primary: #059669;
+}
+
+[data-theme="dark"] {
+    --bg-dark: #020606;
+    --card-bg: #0a1110;
+    --card-bg-light: #121d1b;
+    --text-white: #ffffff;
+    --text-muted: #718096;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    transition: background-color 0.3s;
+}
+
+#app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.hidden { display: none !important; }
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(2,6,6,0.6);
+    z-index: 80;
+}
+.modal-card {
+    background: var(--card-bg);
+    padding: 1.25rem;
+    border-radius: 12px;
+    width: min(92%, 420px);
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.04);
+}
+.modal-card h3 { margin-bottom: 0.5rem; }
+.modal-actions { display:flex; gap:0.5rem; justify-content:center; margin-top:0.75rem; }
+
+/* Dua item */
+.dua-item { background: var(--card-bg); padding: 1rem; border-radius: 10px; margin-bottom: 0.75rem; }
+.dua-item h4 { margin-bottom: 0.4rem; }
+.dua-item p { color: var(--text-muted); margin-bottom: 0.6rem; }
+
+/* Dua list scrolling fix: ensure the list inside Duas view can scroll independently */
+.dua-list {
+    padding: 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: calc(100vh - 240px); /* keeps list inside view area without page scroll */
+}
+
+/* Prayer row adjustments */
+.prayer-row .prayer-right { display:flex; align-items:center; gap:0.8rem; }
+.track-checkbox { display:flex; align-items:center; gap:0.6rem; font-size:0.9rem; color:var(--text-muted); }
+.track-checkbox input { width:22px; height:22px; accent-color: var(--primary); border-radius:6px; }
+
+/* Map embed */
+.map-embed { width:100%; height:220px; border-radius:10px; overflow:hidden; margin-bottom:0.75rem; }
+.map-embed iframe { width:100%; height:100%; border:0; }
+
+/* Tracked time */
+.tracked-time { font-size:0.75rem; color:var(--text-muted); margin-top:4px; }
+
+/* Onboarding Overhaul */
+#welcome-screen {
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.welcome-greeting-typewriter {
+    font-size: 1.75rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    min-height: 100px;
+    line-height: 1.2;
+}
+
+.name-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+/* Improved onboarding option buttons */
+.option-btn {
+    background: linear-gradient(180deg, rgba(16,185,129,0.12), rgba(16,185,129,0.06));
+    border: 1px solid rgba(16,185,129,0.14);
+    color: var(--text-white);
+    padding: 0.95rem 1.2rem;
+    border-radius: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s;
+    min-width: 130px;
+    box-shadow: 0 6px 18px rgba(2,6,6,0.35);
+    text-transform: none;
+}
+.option-btn:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(2,6,6,0.35); }
+.options-grid.horizontal { display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; }
+
+/* Tidy checkbox appearance and disabled state */
+.track-checkbox input[type="checkbox"] {
+    width:20px; height:20px; accent-color: var(--primary);
+}
+.track-checkbox input[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* Prayer row timers */
+.prayer-row .prayer-time { font-weight: 800; color: var(--text-white); }
+.prayer-row .prayer-timer { font-size: 0.85rem; color: var(--primary-light); margin-top:4px; }
+
+/* Location display under prayers */
+.location-display {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Theme button active visual */
+.theme-btn.active {
+    box-shadow: 0 8px 22px rgba(16,185,129,0.12);
+    border-color: rgba(16,185,129,0.18);
+    background: linear-gradient(180deg, var(--primary-light), var(--primary));
+    color: #021010;
+}
+
+#user-name-input {
+    background: var(--card-bg-light);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-white);
+    padding: 1.25rem;
+    border-radius: var(--btn-radius);
+    font-size: 1.1rem;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#user-name-input:focus {
+    border-color: var(--primary);
+}
+
+.btn-primary {
+    background: linear-gradient(180deg, var(--primary-light), var(--primary));
+    color: #021010;
+    border: none;
+    padding: 0.9rem 1.6rem;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(16,185,129,0.12);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn-primary:active {
+    transform: scale(0.96);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--text-white);
+    padding: 0.8rem 1.4rem;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.12s ease, transform 0.12s;
+}
+
+/* Dashboard Styles */
+#main-content {
+    background: var(--bg-dark);
+}
+
+.view {
+    display: none;
+    height: calc(100% - 70px); /* Space for nav */
+    flex-direction: column;
+    animation: slideUp 0.3s ease-out;
+}
+
+.view.active { display: flex; }
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.view-header {
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Back button and icon button styling */
+.back-btn, .icon-btn {
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 8px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+.back-btn svg, .icon-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.greeting-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.dashboard-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 1.5rem 1.5rem;
+}
+
+/* Cards */
+.hero-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.next-prayer-card {
+    background: var(--card-bg);
+    border-radius: 1.5rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.prayer-time-large {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0.25rem 0;
+}
+
+.location-info {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.countdown-timer {
+    font-size: 0.85rem;
+    color: var(--primary-light);
+    font-weight: 600;
+}
+
+.track-fajr-card {
+    background: var(--card-bg);
+    border-radius: 1.5rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.track-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.progress-ring {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+}
+
+/* Features Grid */
+.features-section {
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.section-header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.features-grid {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 65px;
+    text-align: center;
+}
+.feature-item span { display:block; margin-top:4px; font-size:0.75rem; }
+.search-bar { padding: 0 1.25rem; margin-bottom: 0.75rem; }
+.search-bar input {
+    width: calc(100% - 0px);
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: var(--card-bg);
+    color: var(--text-white);
+    outline: none;
+}
+
+.feature-item img {
+    width: 55px;
+    height: 55px;
+    background: var(--card-bg-light);
+    border-radius: 50%;
+    padding: 12px;
+}
+
+.feature-item span {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Wisdom Card */
+.wisdom-section {
+    margin-top: 1rem;
+}
+
+.wisdom-card {
+    background: var(--card-bg);
+    border-radius: 1.5rem;
+    padding: 1.75rem;
+    border: 1px solid rgba(255,255,255,0.03);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.wisdom-card p {
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.wisdom-card span {
+    font-size: 0.85rem;
+    color: var(--primary-light);
+    font-weight: 700;
+}
+
+/* Navigation */
+.bottom-nav {
+    height: 70px;
+    background: var(--card-bg);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+}
+
+.nav-item.active {
+    color: var(--primary-light);
+}
+
+/* Component Specifics */
+.centered {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.tasbih-display {
+    font-size: 5rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+}
+
+.tasbih-bead-container {
+    width: 150px;
+    height: 150px;
+    background: var(--card-bg-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.tasbih-bead-main {
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    border-radius: 50%;
+    transition: transform 0.1s;
+}
+
+.tasbih-bead-container:active .tasbih-bead-main {
+    transform: scale(0.9);
+}
+
+/* Prayer List */
+.prayer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.5rem;
+}
+
+.prayer-row {
+    background: var(--card-bg);
+    padding: 1.25rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.prayer-row.active {
+    background: var(--primary-dark);
+    border: 1px solid var(--primary);
+}
+
+/* Compass */
+.compass-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.compass-needle {
+    width: 4px;
+    height: 180px;
+    background: linear-gradient(to bottom, #ef4444 50%, #fff 50%);
+    position: relative;
+    transition: transform 0.1s linear;
+}
+
+.kaaba-marker {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+}
+
+/* Settings */
+.settings-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.settings-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.theme-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.theme-btn {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-white);
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+}
+
+select {
+    width: 100%;
+    background: var(--card-bg);
+    color: var(--text-white);
+    padding: 1rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0.75rem;
+}
+
+/* Disclaimer Page */
+.disclaimer-page { text-align: center; }
+.disclaimer-icon { font-size: 3rem; margin-bottom: 1.5rem; }
+.timer-text { margin-top: 1.5rem; color: var(--accent); font-weight: 700; }
